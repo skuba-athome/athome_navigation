@@ -1,0 +1,22 @@
+<package>
+  <description brief="lumyai_move_base">
+
+     lumyai_move_base
+
+  </description>
+  <author>skuba</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/lumyai_move_base</url>
+  <depend package="move_base_msgs"/>
+  <depend package="actionlib"/>
+  <depend package="actionlib_msgs"/>
+  <depend package="rospy"/>
+  <depend package="tf"/>
+  <depend package="lumyai_navigation_msgs"/>
+  <depend package="std_srvs"/>
+  <depend package="std_msgs"/>
+  <depend package="geometry_msgs"/>
+</package>
+
+

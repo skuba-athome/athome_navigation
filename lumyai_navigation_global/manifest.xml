@@ -1,0 +1,18 @@
+<package>
+  <description brief="lumyai_navigation_global">
+
+     lumyai_navigation_global
+
+  </description>
+  <author>skuba</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/lumyai_navigation_global</url>
+  <depend package="move_base"/>
+  <depend package="amcl"/>
+  <depend package="lumyai_navigation_config"/>
+  <depend package="topic_tools"/>
+
+</package>
+
+

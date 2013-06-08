@@ -1,0 +1,9 @@
+syntax: glob
+
+bin
+build
+CMakeFiles
+CMakeCache.txt
+msg_gen
+*~
+*.pyc

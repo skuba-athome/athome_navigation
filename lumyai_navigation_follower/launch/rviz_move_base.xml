@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="rviz" type="rviz" name="$(anon rviz)" args="-d $(find lumyai_navigation_follower)/rviz/move_base_map.vcg">
+  </node>
+  <!--node pkg="costmap_2d" type="costmap_2d_markers" name="voxel_visualizer">
+    <remap from="voxel_grid" to="lumyai_navigation_follower_map/local_costmap/voxel_grid_throttled"/>
+  </node-->
+</launch>
