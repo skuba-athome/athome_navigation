@@ -8,7 +8,7 @@ default_target: all
 #=============================================================================
 # Special targets provided by cmake.
 
-# Disable implicit rules so canoncical targets will work.
+# Disable implicit rules so canonical targets will work.
 .SUFFIXES:
 
 # Remove some rules from gmake that .SUFFIXES does not remove.
@@ -35,6 +35,9 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
 CMAKE_SOURCE_DIR = /home/skuba/skuba_athome/lumyai_navigation/lumyai_navigation_follower
 
@@ -46,8 +49,8 @@ CMAKE_BINARY_DIR = /home/skuba/skuba_athome/lumyai_navigation/lumyai_navigation_
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
-	/usr/bin/cmake -i .
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -185,6 +188,19 @@ navigation_follower_map: cmake_check_build_system
 navigation_follower_map/fast:
 	$(MAKE) -f CMakeFiles/navigation_follower_map.dir/build.make CMakeFiles/navigation_follower_map.dir/build
 .PHONY : navigation_follower_map/fast
+
+#=============================================================================
+# Target rules for targets named remove_target
+
+# Build rule for target.
+remove_target: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 remove_target
+.PHONY : remove_target
+
+# fast build rule for target.
+remove_target/fast:
+	$(MAKE) -f CMakeFiles/remove_target.dir/build.make CMakeFiles/remove_target.dir/build
+.PHONY : remove_target/fast
 
 #=============================================================================
 # Target rules for targets named rosbuild_precompile
@@ -346,6 +362,21 @@ src/navigation_follower_map.s:
 	$(MAKE) -f CMakeFiles/navigation_follower_map.dir/build.make CMakeFiles/navigation_follower_map.dir/src/navigation_follower_map.s
 .PHONY : src/navigation_follower_map.s
 
+# target to build an object file
+src/remove_target.o:
+	$(MAKE) -f CMakeFiles/remove_target.dir/build.make CMakeFiles/remove_target.dir/src/remove_target.o
+.PHONY : src/remove_target.o
+
+# target to preprocess a source file
+src/remove_target.i:
+	$(MAKE) -f CMakeFiles/remove_target.dir/build.make CMakeFiles/remove_target.dir/src/remove_target.i
+.PHONY : src/remove_target.i
+
+# target to generate assembly for a file
+src/remove_target.s:
+	$(MAKE) -f CMakeFiles/remove_target.dir/build.make CMakeFiles/remove_target.dir/src/remove_target.s
+.PHONY : src/remove_target.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -361,6 +392,7 @@ help:
 	@echo "... navigation_follower"
 	@echo "... navigation_follower_map"
 	@echo "... rebuild_cache"
+	@echo "... remove_target"
 	@echo "... rosbuild_precompile"
 	@echo "... rosbuild_premsgsrvgen"
 	@echo "... rospack_genmsg"
@@ -377,6 +409,9 @@ help:
 	@echo "... src/navigation_follower_map.o"
 	@echo "... src/navigation_follower_map.i"
 	@echo "... src/navigation_follower_map.s"
+	@echo "... src/remove_target.o"
+	@echo "... src/remove_target.i"
+	@echo "... src/remove_target.s"
 .PHONY : help
 
 

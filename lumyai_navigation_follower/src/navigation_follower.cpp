@@ -11,9 +11,6 @@
 #include <std_msgs/String.h>
 #include <pluginlib/class_loader.h>
 // classes wich are parts of this pkg
-#include <eband_local_planner/eband_local_planner.h>
-#include <eband_local_planner/conversions_and_types.h>
-#include <eband_local_planner/eband_visualization.h>
 #include <base_local_planner/goal_functions.h>
 // boost classes
 #include <boost/bind.hpp>
@@ -21,7 +18,7 @@
 //-----------------------
 #include <lumyai_navigation_msgs/NavGoalMsg.h>
 
-#define GOAL_RADIUS	0.5f
+#define GOAL_RADIUS	0.85f
 
 void pubRobotPath();
 void pubTargetPath();
@@ -31,8 +28,6 @@ ros::Publisher pub_vel,pub_target_path,pub_robot_path,pub_pan_tilt,pub_global_pa
 costmap_2d::Costmap2DROS* planner_costmap_ros;
 nav_core::BaseGlobalPlanner* planner;
 nav_core::BaseLocalPlanner* tc;
-boost::shared_ptr<eband_local_planner::EBandPlanner> eband;
-boost::shared_ptr<eband_local_planner::EBandVisualization> eband_visual;
 
 tf::TransformListener* listener;
 const std::string robot_frame = "base_link";
@@ -75,8 +70,8 @@ void cmdCallback(const lumyai_navigation_msgs::NavGoalMsg::Ptr& new_goal)
 	//else clear_costmap = false;
 	static geometry_msgs::PoseStamped::Ptr goal_temp(new geometry_msgs::PoseStamped);
 	goal_temp->header.stamp = ros::Time::now();
-	if(new_goal->ref_frame == "relative") goal_temp->header.frame_id = robot_frame;
-	else if(new_goal->ref_frame == "absolute") goal_temp->header.frame_id = world_frame;
+	if(strcmp(new_goal->ref_frame.data(),"relative") == 0) goal_temp->header.frame_id = robot_frame;
+	else if(strcmp(new_goal->ref_frame.data(),"absolute") == 0) goal_temp->header.frame_id = world_frame;
 	goal_temp->pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0,new_goal->pose2d.theta);
 	goal_temp->pose.position.x = new_goal->pose2d.x;
 	goal_temp->pose.position.y = new_goal->pose2d.y;
@@ -91,46 +86,6 @@ void cmdCallback(const lumyai_navigation_msgs::NavGoalMsg::Ptr& new_goal)
   	}
 }
 
-
-
-
-// set global plan to wrapper and pass it to eband
-bool setPlan(const std::vector<geometry_msgs::PoseStamped>& global_plan)
-{
-	
-	// transform global plan to the map frame we are working in
-	// this also cuts the plan off (reduces it to local window)
-	std::vector<geometry_msgs::PoseStamped> transformed_plan;
-	std::vector<int> start_end_counts (2, (int) global_plan.size()); // counts from the end() of the plan
-	if(!eband_local_planner::transformGlobalPlan(*listener, global_plan, *planner_costmap_ros, planner_costmap_ros->getGlobalFrameID(), transformed_plan, start_end_counts))
-	{
-		// if plan could not be tranformed abort control and local planning
-		ROS_WARN("Could not transform the global plan to the frame of the controller");
-		return false;
-	}
-
-    // also check if there really is a plan
-	if(transformed_plan.empty())
-	{
-		// if global plan passed in is empty... we won't do anything
-		ROS_WARN("Transformed plan is empty. Aborting local planner!");
-		return false;
-	}
-
-
-	// set plan - as this is fresh from the global planner robot pose should be identical to start frame
-	if(!eband->setPlan(transformed_plan))
-	{
-		ROS_ERROR("Setting plan to Elastic Band method failed!");
-		return false;
-	}
-	ROS_INFO("Global plan set to elastic band for optimization");
-
-	// let eband refine the plan before starting continuous operation (to smooth sampling based plans)
-	eband->optimizeBand();
-
-    return true;
-}
 
 //goal must be in world frame
 void trajectory_con()
@@ -171,15 +126,38 @@ void trajectory_con()
 	my_costmap.worldToMap(newgoal.pose.position.x, newgoal.pose.position.y, px,py);
 	if(my_costmap.getCost(px,py)>=costmap_2d::INSCRIBED_INFLATED_OBSTACLE)
 	{
-		float goal_ang = atan2(goal->pose.position.y,goal->pose.position.x);
-		for(float n = goal_ang; n<=goal_ang+M_PI; n+=M_PI/10)
+		float goal_ang = tf::getYaw(goal->pose.orientation);
+		//float goal_ang = atan2(goal->pose.position.y,goal->pose.position.x);
+		for(float n = GOAL_RADIUS; n<=GOAL_RADIUS*2; n+=0.05)//+M_PI
+		{
+			newgoal.pose.position.x = goal->pose.position.x - n*cos(goal_ang);
+			newgoal.pose.position.y = goal->pose.position.y - n*sin(goal_ang);
+			my_costmap.worldToMap(newgoal.pose.position.x, newgoal.pose.position.y, px,py);
+			//if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) break;
+			if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) 
+			{
+				//newgoal.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, n);
+				break;
+			}
+		}
+	}
+	/*if(my_costmap.getCost(px,py)>=costmap_2d::INSCRIBED_INFLATED_OBSTACLE)
+	{
+		float goal_ang = tf::getYaw(goal->pose.orientation);
+		//float goal_ang = atan2(goal->pose.position.y,goal->pose.position.x);
+		for(float n = goal_ang; n<=goal_ang; n+=M_PI/10)//+M_PI
 		{
 			newgoal.pose.position.x = goal->pose.position.x - GOAL_RADIUS*cos(n);
 			newgoal.pose.position.y = goal->pose.position.y - GOAL_RADIUS*sin(n);
 			my_costmap.worldToMap(newgoal.pose.position.x, newgoal.pose.position.y, px,py);
-			if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) break;
+			//if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) break;
+			if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) 
+			{
+				newgoal.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, n);
+				break;
+			}
 		}
-	}
+	}*/
 	
 	tf::Stamped<tf::Pose> robot_pose_tf;
 	geometry_msgs::PoseStamped robot_pose;
@@ -188,8 +166,6 @@ void trajectory_con()
 	tf::poseStampedTFToMsg(robot_pose_tf, robot_pose);
 
 
-	
-	
 	geometry_msgs::Twist cmd_vel;
 	cmd_vel.linear.x = 0.0f;
 	cmd_vel.linear.y = 0.0f;
@@ -197,14 +173,13 @@ void trajectory_con()
 	
 	bool plan_status = true;
 	static std::vector<geometry_msgs::PoseStamped> path;
-	static std::vector<eband_local_planner::Bubble> current_band;
 	static std::vector<geometry_msgs::PoseStamped> refined_plan;
 	
 	float ang_check = tf::getYaw(robot_pose.pose.orientation)-tf::getYaw(newgoal.pose.orientation);
 	if(ang_check > M_PI) ang_check-=2*M_PI;
 	else if (ang_check < -M_PI) ang_check+=2*M_PI;
 	std_msgs::String is_fin_temp;
-	if(fabs(robot_pose.pose.position.x-newgoal.pose.position.x) < 0.4f && fabs(robot_pose.pose.position.y-newgoal.pose.position.y) < 0.4f && fabs(ang_check) < 0.5f)
+	if(fabs(robot_pose.pose.position.x-newgoal.pose.position.x) < 0.7f && fabs(robot_pose.pose.position.y-newgoal.pose.position.y) < 0.7f && fabs(ang_check) < 0.5f)
 	{	
 		is_fin_temp.data = "SUCCEEDED";
 	}else is_fin_temp.data = "ACTIVE";
@@ -216,27 +191,6 @@ void trajectory_con()
 	robot_pose2d.theta = tf::getYaw(robot_pose.pose.orientation);
 	pub_robot_pose.publish(robot_pose2d);
 	
-
-	/*if(needGbPlan)
-	{
-		if(planner->makePlan(robot_pose,newgoal,path))
-		{
-			if(setPlan(path) && eband->getBand(current_band) && eband->getPlan(refined_plan))
-			{	
-				needGbPlan = false;	
-			}
-			else
-			{
-				ROS_WARN("Could not set a plan.........");
-				plan_status = false;	
-			}	
-		}
-		else
-		{
-			ROS_WARN("Could not make a plan.........");
-			plan_status = false;
-		}	
-	}*/
 	if(1)//needGbPlan)
 	{
 		if(planner->makePlan(robot_pose,newgoal,path))
@@ -249,24 +203,8 @@ void trajectory_con()
 			plan_status = false;
 			ROS_WARN("Cannot find any path.........");
 		}
-		
-		/*if(plan_status && setPlan(path) && eband->getBand(current_band) && eband->getPlan(refined_plan))
-		{
-			plan_status = true;
-			needGbPlan = false;
-		}
-		else
-		{
-			plan_status = false;
-			ROS_WARN("Cannot correct given path by eband.........");
-			refined_plan = path;
-		}*/
 		refined_plan = path;
 	}	
-
-	// display result
-	//eband_visual->publishBand("bubbles", current_band);
-	//base_local_planner::publishPlan(refined_plan, pub_global_path, 0.0, 1.0, 0.0, 0.0);
 
 	if(plan_status && tc->setPlan(refined_plan))
 	{
@@ -348,14 +286,7 @@ int main(int argc, char** argv)
 
 	pluginlib::ClassLoader<nav_core::BaseLocalPlanner> blp_loader("nav_core", "nav_core::BaseLocalPlanner");
 	tc = blp_loader.createClassInstance("base_local_planner/TrajectoryPlannerROS");//"eband_local_planner/EBandPlannerROS"//base_local_planner/TrajectoryPlannerROS
-	tc->initialize(blp_loader.getName("base_local_planner/TrajectoryPlannerROS"), listener, planner_costmap_ros);//dwa_local_planner/DWAPlannerROS
-	
-	eband = boost::shared_ptr<eband_local_planner::EBandPlanner>(new eband_local_planner::EBandPlanner("eband_planner", planner_costmap_ros));
-	eband_visual = boost::shared_ptr<eband_local_planner::EBandVisualization>(new eband_local_planner::EBandVisualization);
-	
-	eband->setVisualization(eband_visual);
-	eband_visual->initialize(n, planner_costmap_ros);
-
+	tc->initialize(blp_loader.getName("base_local_planner/TrajectoryPlannerROS"), listener, planner_costmap_ros);//dwa_local_planner/DWAPlannerROS//base_local_planner/TrajectoryPlannerROS
 	
 	//ros::Timer timer = n.createTimer(ros::Duration(0.1), boost::bind(&trajectory_con, boost::ref(tf)));
 	ros::Timer timer = n.createTimer(ros::Duration(0.1), boost::bind(&trajectory_con));

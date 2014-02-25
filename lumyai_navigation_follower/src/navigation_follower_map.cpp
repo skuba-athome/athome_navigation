@@ -18,7 +18,7 @@
 //-----------------------
 #include <lumyai_navigation_msgs/NavGoalMsg.h>
 
-#define GOAL_RADIUS	0.5f
+#define GOAL_RADIUS	0.85f
 
 void pubRobotPath();
 void pubTargetPath();
@@ -149,19 +149,25 @@ void trajectory_con()
 	costmap_2d::Costmap2D my_costmap;
 	geometry_msgs::PoseStamped newgoal;
 	global_costmap_ros->getCostmapCopy(my_costmap);
-	
+
 	newgoal = *goal;
 	unsigned int px,py;
 	my_costmap.worldToMap(newgoal.pose.position.x, newgoal.pose.position.y, px,py);
 	if(my_costmap.getCost(px,py)>=costmap_2d::INSCRIBED_INFLATED_OBSTACLE)
 	{
-		float goal_ang = atan2(goal->pose.position.y,goal->pose.position.x);
-		for(float n = goal_ang; n<=goal_ang+M_PI; n+=M_PI/10)
+		float goal_ang = tf::getYaw(goal->pose.orientation);
+		//float goal_ang = atan2(goal->pose.position.y,goal->pose.position.x);
+		for(float n = GOAL_RADIUS; n<=GOAL_RADIUS*2; n+=0.05)//+M_PI
 		{
-			newgoal.pose.position.x = goal->pose.position.x - GOAL_RADIUS*cos(n);
-			newgoal.pose.position.y = goal->pose.position.y - GOAL_RADIUS*sin(n);
+			newgoal.pose.position.x = goal->pose.position.x - n*cos(goal_ang);
+			newgoal.pose.position.y = goal->pose.position.y - n*sin(goal_ang);
 			my_costmap.worldToMap(newgoal.pose.position.x, newgoal.pose.position.y, px,py);
-			if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) break;
+			//if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) break;
+			if(my_costmap.getCost(px,py)<costmap_2d::INSCRIBED_INFLATED_OBSTACLE) 
+			{
+				//newgoal.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, n);
+				break;
+			}
 		}
 	}
 	
@@ -185,7 +191,7 @@ void trajectory_con()
 	else if (ang_check < -M_PI) ang_check+=2*M_PI;
 	std_msgs::String is_fin_temp;
 
-	if(fabs(robot_pose.pose.position.x-newgoal.pose.position.x) < 0.2f && fabs(robot_pose.pose.position.y-newgoal.pose.position.y) < 0.2f && fabs(ang_check) < 0.3f)
+	if(fabs(robot_pose.pose.position.x-newgoal.pose.position.x) < 0.7f && fabs(robot_pose.pose.position.y-newgoal.pose.position.y) < 0.7f && fabs(ang_check) < 0.5f)
 	{	
 		is_fin_temp.data = "SUCCEEDED";
 	}else is_fin_temp.data = "ACTIVE";
