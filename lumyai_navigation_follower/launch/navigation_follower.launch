@@ -1,0 +1,15 @@
+
+<launch>
+  
+  <!-- Run the costmap node -->
+  <node name="lumyai_navigation_follower" pkg="lumyai_navigation_follower" type="navigation_follower" output="screen">
+  
+  <rosparam file="$(find lumyai_navigation_follower)/config/base_local_planner_params.yaml" command="load" ns="TrajectoryPlannerROS" />
+ <!--rosparam file="$(find lumyai_navigation_config)/move_base/dwa_local_planner.yaml" command="load" ns="DWAPlannerROS" /-->
+  <rosparam file="$(find lumyai_navigation_follower)/config/costmap_common_params.yaml" command="load" ns="costmap" /> 
+    
+  </node>
+  
+    <!--- Run rviz -->
+  <include file="$(find lumyai_navigation_follower)/launch/rviz_move_base.xml" />
+</launch>
