@@ -1,0 +1,13 @@
+syntax: glob
+
+bin
+build
+CMakeFiles
+CMakeCache.txt
+msg_gen
+*~
+*.pyc
+*.cfgc
+lumyai_move_base/cfg/cpp/*
+lumyai_move_base/src/lumyai_move_base/*
+lumyai_move_base/docs/*

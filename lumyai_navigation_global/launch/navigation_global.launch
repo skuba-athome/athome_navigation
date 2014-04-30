@@ -1,0 +1,21 @@
+<launch>
+
+  <!--- Run move_base -->
+  <include file="$(find lumyai_navigation_global)/launch/move_base.xml" />
+  
+  <!-- Run the map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(find lumyai_navigation_global)/maps/floor_8_before_jp.yaml"/>
+ 
+  <!--- Run AMCL -->
+  <include file="$(find lumyai_navigation_global)/launch/amcl_node.xml" />
+  
+  <!--- Run rviz -->
+  <include file="$(find lumyai_navigation_global)/launch/rviz_move_base.xml" />
+
+<node name="lumyai_move_base" pkg="lumyai_move_base" type="lumyai_move_base.py"/>
+
+<!--node name="lumyai_gaze_control" pkg="lumyai_gaze_control" type="gaze_control.py"/-->
+
+<node name="initpos_cov" pkg="lumyai_navigation_global" type="initpos_cov.py"/>
+
+</launch>
