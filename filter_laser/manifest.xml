@@ -1,0 +1,18 @@
+<package>
+  <description brief="filter_laser">
+
+     filter_laser
+
+  </description>
+  <author>Skuba-SLAM</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/filter_laser</url>
+  <depend package="std_msgs"/>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="geometry_msgs"/>
+
+</package>
+
+

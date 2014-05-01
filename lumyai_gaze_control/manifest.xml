@@ -1,0 +1,17 @@
+<package>
+  <description brief="lumyai_gaze_control">
+
+     lumyai_gaze_control
+
+  </description>
+  <author>skuba</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/lumyai_gaze_control</url>
+  <depend package="geometry_msgs"/>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+	<depend package="tf"/>
+</package>
+
+
