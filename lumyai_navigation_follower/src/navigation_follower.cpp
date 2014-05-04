@@ -18,7 +18,7 @@
 //-----------------------
 #include <lumyai_navigation_msgs/NavGoalMsg.h>
 
-#define GOAL_RADIUS	0.85f
+#define GOAL_RADIUS	0.65f
 
 void pubRobotPath();
 void pubTargetPath();
