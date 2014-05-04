@@ -1,0 +1,9 @@
+<launch>
+
+  <!--- Run move_base -->
+  <include file="$(find lumyai_navigation_local)/launch/move_base.xml" />
+  
+  <!--- Run rviz -->
+  <include file="$(find lumyai_navigation_local)/launch/rviz_move_base.xml" />
+ 
+</launch>
