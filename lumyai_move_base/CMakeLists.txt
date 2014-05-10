@@ -43,3 +43,4 @@ rosbuild_add_boost_directories()
 rosbuild_add_executable(move_base src/move_base.cpp)
 rosbuild_link_boost(move_base system)
 
+rosbuild_add_executable(extend_goal src/extended_goal.cpp)
