@@ -12,12 +12,12 @@
   <!--- Run rviz -->
   <include file="$(find lumyai_navigation_global)/launch/rviz_move_base.xml" />
 
-<node name="lumyai_move_base" pkg="lumyai_move_base" type="lumyai_move_base.py"/>
+  <node name="lumyai_move_base" pkg="lumyai_move_base" type="lumyai_move_base.py"/>
 
-<node name="filter_scan" pkg="filter_laser" type="filter_scan"/>
+  <node name="filter_scan" pkg="filter_laser" type="filter_scan"/>
 
-<!--node name="lumyai_gaze_control" pkg="lumyai_gaze_control" type="gaze_control.py"/-->
+  <!--node name="lumyai_gaze_control" pkg="lumyai_gaze_control" type="gaze_control.py"/-->
 
-<node name="initpos_cov" pkg="lumyai_navigation_global" type="initpos_cov.py"/>
+  <node name="initpos_cov" pkg="lumyai_navigation_global" type="initpos_cov.py"/>
 
 </launch>
