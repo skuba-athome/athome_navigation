@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="rviz" type="rviz" name="move_base_rviz" args="-d $(find athome_navigation_config)/rviz/move_base.rviz" output="screen"/>
+</launch>
