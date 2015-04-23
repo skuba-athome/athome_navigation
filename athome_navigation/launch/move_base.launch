@@ -1,6 +1,9 @@
 <launch>
   <node ns="navigation" pkg="move_base" type="move_base" name="move_base_node" output="screen">
-    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <remap from="move_base_simple/goal" to="move_base_node/set_goal"/>
+    <remap from="cmd_vel" to="/base/cmd_vel"/>
+
+    <param name="base_global_planner" value="navfn/NavfnROS" />
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
 
     <param name="controller_frequency" value="15.0" />
