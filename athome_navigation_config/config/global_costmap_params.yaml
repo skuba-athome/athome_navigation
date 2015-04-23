@@ -13,4 +13,4 @@ global_costmap:
   static_map: true
   rolling_window: false
 
-  footprint_padding: 0.02
+  footprint_padding: 0.01
