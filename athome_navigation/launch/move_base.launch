@@ -6,14 +6,14 @@
     <param name="base_global_planner" value="navfn/NavfnROS" />
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
 
-    <param name="controller_frequency" value="15.0" />
+    <param name="controller_frequency" value="10.0" />
     <param name="planner_patience" value="3.0" />
     <param name="controller_patience" value="10.0" />
     <param name="conservative_reset_dist" value="3.0" />
     <param name="recovery_behavior_enabled" value="true" />
     <param name="clearing_rotation_allowed" value="false" />
     <param name="shutdown_costmaps" value="false" />
-    <param name="oscillation_timeout" value="5.0" />
+    <param name="oscillation_timeout" value="10.0" />
     <param name="oscillation_distance" value="0.05" />
     <param name="planner_frequency" value="5.0" />
 
