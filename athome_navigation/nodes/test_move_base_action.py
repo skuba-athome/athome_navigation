@@ -2,7 +2,9 @@
 
 import rospy
 import actionlib
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from tf.transformations import euler_from_quaternion
+from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal, MoveBaseActionFeedback, MoveBaseActionResult
+from std_msgs.msg import String
 
 
 def done_cab(status, result):
@@ -16,8 +18,24 @@ def fed_cab(feedback):
         print "feedback"
         print feedback
 
+def cb_status(data):
+        print 'cb_status'
+	print data.status.status
+
+def cb_feedback(data):
+        position = data.feedback.base_position.pose.position
+        orientation = data.feedback.base_position.pose.orientation
+        quaternion = (0, 0, orientation.z, orientation.w)
+        rpy_angle = euler_from_quaternion(quaternion)
+        b_position = (position.x, position.y, rpy_angle[2])
+        print 'cb_feedback'
+	print b_position
+
 if __name__ == '__main__':
     rospy.init_node('test_move_base_action')
+
+    rospy.Subscriber('/navigation/move_base/result', MoveBaseActionResult, cb_status)
+    rospy.Subscriber('/navigation/move_base/feedback', MoveBaseActionFeedback, cb_feedback)
 
     client = actionlib.SimpleActionClient('/navigation/move_base', MoveBaseAction)
     client.wait_for_server()
