@@ -1,6 +1,6 @@
 <launch>
   <node ns="navigation" pkg="move_base" type="move_base" name="move_base_node" output="screen">
-    <remap from="move_base_simple/goal" to="move_base_node/set_goal"/>
+    <!--<remap from="move_base_simple/goal" to="move_base_node/set_goal"/>-->
     <remap from="cmd_vel" to="/base/cmd_vel"/>
     <remap from="odom" to="/base/odom"/>
 
