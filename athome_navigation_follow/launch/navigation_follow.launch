@@ -1,0 +1,9 @@
+<launch>
+
+  <!--- Run move_base -->
+  <include file="$(find athome_navigation_follow)/launch/move_base.launch" />
+  
+  <!--- Run rviz -->
+  <include file="$(find athome_navigation_follow)/launch/rviz_move_base.launch" />
+
+</launch>
