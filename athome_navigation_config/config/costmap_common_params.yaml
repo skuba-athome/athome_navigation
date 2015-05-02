@@ -16,7 +16,7 @@ footprint: [[0.30, 0.23], [-0.30, 0.23], [-0.3, -0.23], [0.3, -0.23]]
 footprint_padding: 0.01
 
 #Cost function parameters
-inflation_radius: 0.20
+inflation_radius: 0.35
 cost_scaling_factor: 10.0
    
 observation_sources: base_scan #virtual_scan  tilt_scan ground_object_cloud
