@@ -1,0 +1,14 @@
+<launch>
+
+  <!--- Run move_base -->
+  <include file="$(find athome_navigation_follow)/launch/move_base.launch" />
+
+  <!--- Run AMCL -->
+  <include file="$(find athome_navigation)/launch/amcl_node.launch" />
+  
+  <!--- Run rviz -->
+  <include file="$(find athome_navigation_follow)/launch/rviz_move_base.launch" />
+
+  <!--- Run Mapping -->
+  <include file="$(find athome_navigation_mapping)/launch/gmapping.launch" />
+</launch>

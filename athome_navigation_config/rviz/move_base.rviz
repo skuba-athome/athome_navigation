@@ -231,7 +231,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 17.5282
+      Distance: 14.1392
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -264,5 +264,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1301
-  X: 50
-  Y: 27
+  X: 65
+  Y: 24
