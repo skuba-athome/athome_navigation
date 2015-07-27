@@ -1,7 +1,7 @@
 # static map parameters
 unknown_cost_value: 0
 lethal_cost_threshold: 100
-map_topic: /navigation/map
+map_topic: /mapping/map
 
 #Set the tolerance we're willing to have for tf transforms
 transform_tolerance: 0.3
@@ -18,8 +18,10 @@ footprint_padding: 0.01
 #Cost function parameters
 inflation_radius: 0.4
 cost_scaling_factor: 10.0
+
+track_unknown_space: true
    
-observation_sources: base_scan #virtual_scan # tilt_scan ground_object_cloud
+observation_sources: base_scan # virtual_scan # tilt_scan ground_object_cloud
 
 base_scan: { topic: /laser/scan,
              sensor_frame: laser_Link, 
