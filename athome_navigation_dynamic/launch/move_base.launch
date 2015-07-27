@@ -1,0 +1,35 @@
+<launch>
+  <node ns="navigation" pkg="move_base" type="move_base" name="move_base_node" output="screen">
+    <!--<remap from="move_base_simple/goal" to="move_base_node/set_goal"/>-->
+    <remap from="cmd_vel" to="/base/cmd_vel"/>
+    <remap from="odom" to="/base/odom"/>
+
+    <param name="base_global_planner" value="carrot_planner/CarrotPlanner" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+
+    <param name="controller_frequency" value="10.0" />
+    <param name="planner_patience" value="3.0" />
+    <param name="controller_patience" value="10.0" />
+    <param name="conservative_reset_dist" value="3.0" />
+    <param name="recovery_behavior_enabled" value="true" />
+    <param name="clearing_rotation_allowed" value="false" />
+    <param name="shutdown_costmaps" value="false" />
+    <param name="oscillation_timeout" value="10.0" />
+    <param name="oscillation_distance" value="0.05" />
+    <param name="planner_frequency" value="5.0" />
+
+    <!-- Load common costmap configuration files -->
+    <rosparam file="$(find athome_navigation_dynamic)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find athome_navigation_dynamic)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <!-- Load global/local costmap configuration files -->
+    <rosparam file="$(find athome_navigation_dynamic)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find athome_navigation_dynamic)/config/global_costmap_params.yaml" command="load" />
+
+    <!-- Load local planner parameters -->
+    <rosparam file="$(find athome_navigation_config)/config/local_planner_params.yaml" command="load" />
+
+    <!-- Load recovery behavior parameters -->
+    <rosparam file="$(find athome_navigation_config)/config/recovery_behaviors.yaml" command="load" />
+  </node>
+
+</launch>
