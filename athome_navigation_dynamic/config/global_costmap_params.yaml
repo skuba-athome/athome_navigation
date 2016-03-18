@@ -9,7 +9,7 @@ global_costmap:
   update_frequency: 3.0
   publish_frequency: 0.0
 
-  #We'll use a map served by the map_server to initialize this costmap
+  #We'll use a map served by the gmapping to initialize this costmap
   static_map: false
   rolling_window: true
 

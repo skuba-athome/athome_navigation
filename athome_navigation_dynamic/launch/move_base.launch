@@ -25,6 +25,9 @@
     <rosparam file="$(find athome_navigation_dynamic)/config/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find athome_navigation_dynamic)/config/global_costmap_params.yaml" command="load" />
 
+    <!-- Load global planner parameters -->
+    <!-- <rosparam file="$(find athome_navigation_config)/config/global_planner_params.yaml" command="load" /> -->
+
     <!-- Load local planner parameters -->
     <rosparam file="$(find athome_navigation_config)/config/local_planner_params.yaml" command="load" />
 
