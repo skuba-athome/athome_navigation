@@ -207,6 +207,22 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 0.7
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /navigation/move_base_node/global_costmap/costmap
+      Value: true
+    - Alpha: 0.7
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /navigation/move_base_node/local_costmap/costmap
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -264,5 +280,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1301
-  X: -1308
-  Y: -744
+  X: 65
+  Y: 24
