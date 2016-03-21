@@ -43,7 +43,7 @@ virtual_scan: { topic: /kinect/virtual_scan,
             clearing: true,
             marking: true,
             max_obstacle_height: 0.5,
-            min_obstacle_height: 0.1,
+            min_obstacle_height: 0.05,
             obstacle_range: 2.5,
             raytrace_range: 3.0,
             inf_is_valid: false
