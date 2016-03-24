@@ -10,5 +10,5 @@
   <include file="$(find athome_navigation_mapping)/launch/gmapping.launch" />
   
   <!--- Run AMCL -->
-  <include file="$(find athome_navigation_dynamic)/launch/amcl_node.launch" />
+  <!--<include file="$(find athome_navigation_dynamic)/launch/amcl_node.launch" /> -->
 </launch>
