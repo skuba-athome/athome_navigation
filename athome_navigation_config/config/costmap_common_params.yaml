@@ -13,7 +13,7 @@ raytrace_range: 3.0
 
 #The footprint of the robot and associated padding
 footprint: [[0.30, 0.23], [-0.30, 0.23], [-0.3, -0.23], [0.3, -0.23]]
-footprint_padding: 0.01
+footprint_padding: 0.03
 
 #Cost function parameters
 inflation_radius: 0.4
