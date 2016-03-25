@@ -12,4 +12,8 @@
   <!--- Run rviz -->
   <include file="$(find athome_navigation)/launch/rviz_move_base.launch" />
 
+  <!--- Create log file -->
+  <!-- <node ns="athome_log" pkg="rosbag" type="record" name="logging_navigation" args="-o navigation /laser/scan /kinect/virtual_scan /navigation/initial_pose /base/odom /navigation/move_base/goal " /> -->
+  <node ns="athome_log" pkg="rosbag" type="record" name="logging_navigation" args="-o log/athome_navigation --node /navigation/move_base_node" />
+
 </launch>
