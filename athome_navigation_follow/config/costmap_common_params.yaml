@@ -35,7 +35,7 @@ base_scan: { topic: /laser/scan,
              inf_is_valid: false
            }
 
-virtual_scan: { topic: /laser/virtual,
+virtual_scan: { topic: /kinect/virtual_scan,
              sensor_frame: base_link, 
              observation_persistence: 0.0, 
              expected_update_rate: 0.75, 
