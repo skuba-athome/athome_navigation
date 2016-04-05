@@ -1,6 +1,6 @@
 <launch>
   <node ns="rviz" pkg="rviz" type="rviz" name="move_base_rviz" args="-d $(find athome_navigation_config)/rviz/move_base_dynamic.rviz" output="screen">
-    <remap from="initialpose" to="/navigation/initial_pose"/>
-    <remap from="move_base_simple/goal" to="/navigation/move_base_simple/goal"/>
+    <remap from="/initialpose" to="/navigation/initial_pose"/>
+    <remap from="/move_base_simple/goal" to="/navigation/move_base_simple/goal"/>
   </node>
 </launch>

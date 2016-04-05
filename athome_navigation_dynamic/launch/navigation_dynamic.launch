@@ -1,7 +1,4 @@
 <launch>
-
-  <param name="use_sim_time" value="true"/>
-
   <!--- Run move_base -->
   <include file="$(find athome_navigation_dynamic)/launch/move_base.launch" />
 
