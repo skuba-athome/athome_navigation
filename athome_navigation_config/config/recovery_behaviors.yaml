@@ -9,13 +9,13 @@ recovery_behaviors:
   #  type: 'move_slow_and_clear/MoveSlowAndClear'
 
 super_conservative_reset:
-  reset_distance: 3.0
+  reset_distance: 1.0
 
 conservative_reset:
   reset_distance: 2.0
 
 aggressive_reset:
-  reset_distance: 1.0
+  reset_distance: 3.0
 
 #move_slow_and_clear:
 #  clearing_distance: 0.5
