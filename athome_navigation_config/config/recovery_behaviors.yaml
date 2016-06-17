@@ -7,6 +7,8 @@ recovery_behaviors:
     type: 'clear_costmap_recovery/ClearCostmapRecovery'
   #- name: 'move_slow_and_clear'
   #  type: 'move_slow_and_clear/MoveSlowAndClear'
+  #- name: 'rotate_recovery'
+  #  type: 'rotate_recovery/RotateRecovery'
 
 super_conservative_reset:
   reset_distance: 1.0
@@ -22,3 +24,4 @@ aggressive_reset:
 #  limited_trans_speed: 0.25
 #  limited_rot_speed: 0.45
 #  limited_distance: 0.3
+
