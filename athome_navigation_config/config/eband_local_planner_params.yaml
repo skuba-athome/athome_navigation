@@ -1,0 +1,24 @@
+EBandPlannerROS:
+  differential_drive: false
+  Ctrl_Rate: 20
+  max_acceleration: 0.5
+  max_vel_lin: 0.4
+  max_vel_th: 0.5
+  min_vel_lin: 0.07
+  min_vel_th: 0.3
+  xy_goal_tolerance: 0.10
+  yaw_goal_tolerance: 0.5
+  
+  # Robot Configuration Parameters
+  #acc_lim_x: 0.2
+  #min_obstacle_dist: 0.2
+  #footprint_model: # types: "point", "circular", "line", "two_circles", "polygon"
+  # type: "circular"
+  # radius: 0.3 # for type "circular"
+  #line_start: [-0.3, 0.0] # for type "line"
+  #line_end: [0.3, 0.0] # for type "line"
+  #front_offset: 0.2 # for type "two_circles"
+  #front_radius: 0.2 # for type "two_circles"
+  #rear_offset: 0.2 # for type "two_circles"
+  #rear_radius: 0.2 # for type "two_circles"
+  #vertices: [ [0.25, -0.05], [0.18, -0.05], [0.18, -0.18], [-0.19, -0.18], [-0.25, 0], [-0.19, 0.18], [0.18, 0.18], [0.18, 0.05], [0.25, 0.05] ] # for type "polygon"
