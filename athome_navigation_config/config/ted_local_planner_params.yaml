@@ -2,7 +2,7 @@ TebLocalPlannerROS:
   # Robot Configuration Parameters
   acc_lim_x: 0.1
   acc_lim_theta: 0.1
-  min_obstacle_dist: 0.20
+  min_obstacle_dist: 0.1
   max_vel_x: 0.3
   max_vel_x_backwards: 0.1
   max_vel_theta: 0.3
@@ -14,6 +14,7 @@ TebLocalPlannerROS:
   weight_acc_lim_x: 1
   weight_acc_lim_theta: 1
   weight_kinematics_forward_drive: 1
+  penalty_epsilon: 0.05
 
   #publish_feedback: true
   map_frame: "/navigation/map"
