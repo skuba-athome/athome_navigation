@@ -1,12 +1,12 @@
 <launch>
-  <node ns="navigation" pkg="athome_move_base" type="move_base" name="move_base_node" output="screen">
+  <node ns="navigation" pkg="athome_move_base" type="athome_move_base" name="athome_move_base_node" output="screen">
     <!--<remap from="move_base_simple/goal" to="move_base_node/set_goal"/>-->
     <remap from="cmd_vel" to="/base/cmd_vel"/>
     <remap from="odom" to="/base/odom"/>
     <!--<remap from="map" to="/mapping/map"/> -->
 
     <param name="base_global_planner" value="navfn/NavfnROS" />
-    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
 
     <param name="controller_frequency" value="10.0" />
     <param name="planner_patience" value="3.0" />
@@ -30,7 +30,7 @@
     <rosparam file="$(find athome_navigation_dynamic)/config/global_planner_params.yaml" command="load" />
 
     <!-- Load local planner parameters -->
-    <rosparam file="$(find athome_navigation_config)/config/local_planner_params.yaml" command="load" />
+    <rosparam file="$(find athome_navigation_config)/config/ted_local_planner_params.yaml" command="load" />
 
     <!-- Load recovery behavior parameters -->
     <rosparam file="$(find athome_navigation_config)/config/recovery_behaviors.yaml" command="load" />
