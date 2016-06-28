@@ -1,7 +1,9 @@
 <launch>
 
   <!--- Run move_base -->
-  <include file="$(find athome_navigation)/launch/move_base.launch" />
+  <include file="$(find athome_navigation)/launch/move_base.launch">
+    <arg name="simulation_enable" value="false" />
+  </include>
   
   <!-- Run the map server -->
   <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/8_floor_new_version.yaml"/>

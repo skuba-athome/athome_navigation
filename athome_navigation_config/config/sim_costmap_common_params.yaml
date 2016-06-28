@@ -1,0 +1,52 @@
+# static map parameters
+unknown_cost_value: 0
+lethal_cost_threshold: 100
+map_topic: /navigation/map
+
+#Set the tolerance we're willing to have for tf transforms
+transform_tolerance: 0.3
+
+#Obstacle marking parameters
+obstacle_range: 2.5
+max_obstacle_height: 2.0
+raytrace_range: 3.0
+
+#The footprint of the robot and associated padding
+footprint: [[0.30, 0.23], [-0.30, 0.23], [-0.3, -0.23], [0.3, -0.23]]
+footprint_padding: 0.03
+
+#Cost function parameters
+inflation_radius: 0.4
+cost_scaling_factor: 10.0
+
+# Turning off virtual scan for simulation
+# observation_sources: base_scan virtual_scan # tilt_scan ground_object_cloud
+observation_sources: base_scan
+
+base_scan: { topic: /laser/scan,
+             sensor_frame: base_laser_link,
+             observation_persistence: 0.0,
+             expected_update_rate: 0.3,
+             data_type: LaserScan,
+             clearing: true,
+             marking: true,
+             max_obstacle_height: 0.5,
+             min_obstacle_height: 0.0,
+             obstacle_range: 2.5,
+             raytrace_range: 3.0,
+             inf_is_valid: false
+           }
+
+# virtual_scan: { topic: /kinect/virtual_scan,
+#            sensor_frame: base_link,
+#            observation_persistence: 0.0,
+#            expected_update_rate: 0.75, 
+#            data_type: PointCloud2,
+#            clearing: true,
+#            marking: true,
+#            max_obstacle_height: 0.5,
+#            min_obstacle_height: 0.0,
+#            obstacle_range: 2.5,
+#            raytrace_range: 3.0,
+#            inf_is_valid: false
+#          }

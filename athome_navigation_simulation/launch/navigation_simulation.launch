@@ -1,0 +1,21 @@
+ <!-- Single Launch File for non-distributed Simulation-->
+<launch>
+    <!--  ************** Global Parameters ***************  -->
+    <param name="/use_sim_time" value="true"/>
+
+    <!--  ************** Stage Simulator ***************  -->
+    <include file="$(find athome_navigation_simulation)/launch/stage_simulator.launch" />
+    
+   <!--  ************** Navigation ***************  -->
+    <include file="$(find athome_navigation)/launch/move_base.launch">
+    	<arg name="simulation_enable" value="true" />
+    </include>
+    <include file="$(find athome_navigation)/launch/amcl_node.launch" />
+    
+    <!-- ***************** Maps ************* -->
+    <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/map_test_sim.yaml"/>
+
+   <!--  **************** Visualisation ****************  -->
+   <include file="$(find athome_navigation)/launch/rviz_move_base.launch" />
+
+</launch>
