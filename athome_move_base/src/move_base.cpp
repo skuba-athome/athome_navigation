@@ -340,6 +340,8 @@ namespace athome_move_base {
     point.pose.position.x = req.x;
     point.pose.position.y = req.y;
 
+    point.pose.orientation.w = 1.0;
+    
     point.header.stamp = ros::Time();
     point.header.frame_id = "base_link";
 
