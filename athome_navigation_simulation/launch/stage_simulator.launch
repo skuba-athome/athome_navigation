@@ -1,7 +1,0 @@
-<launch> 
-        <!--********** Stage Simulator ***************  -->
-        <node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_robocup.world">
-        <remap from="base_scan" to="/laser/scan"/>
-        <remap from="cmd_vel" to="/set_velocity"/>
-        </node>
-</launch> 
