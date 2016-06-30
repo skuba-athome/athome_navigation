@@ -4,28 +4,30 @@
     <param name="/use_sim_time" value="true"/>
 
     <!--  ************** Stage Simulator ***************  -->
-	<!--        
-		<node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_whole_arena.world">
-        <node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_arena_b.world">
-	-->
-	    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_arena_b.world">
-		<remap from="base_scan" to="/laser/scan"/>
-    	<remap from="cmd_vel" to="/set_velocity"/>
+    <!--        
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_whole_arena.world">
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_arena_b.world">
+    -->
+    <node pkg="stage_ros" type="stageros" name="stageros" args="$(find athome_navigation_simulation)/stage/athome_map_arena_b.world">
+        <remap from="base_scan" to="/laser/scan"/>
+        <remap from="cmd_vel" to="/base/cmd_vel"/>
     </node>
     
-   <!--  ************** Navigation ***************  -->
+    <!--  ************** Navigation ***************  -->
     <include file="$(find athome_navigation)/launch/move_base.launch">
     	<arg name="simulation_enable" value="true" />
     </include>
     <include file="$(find athome_navigation)/launch/amcl_node.launch" />
     
     <!-- ***************** Maps ************* -->
-	<!--
-    	<node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/sim_whole_arena.yaml"/>
-		<node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/sim_arena_b.yaml"/>
-	-->
-		<node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/sim_arena_b.yaml"/>
-   <!--  **************** Visualisation ****************  -->
-   <include file="$(find athome_navigation)/launch/rviz_move_base.launch" />
+    <!--
+    <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/sim_whole_arena.yaml"/>
+    <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/sim_arena_b.yaml"/>
+    -->
+    
+    <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/sim_arena_b.yaml"/>
+   
+    <!--  **************** Visualisation ****************  -->
+    <include file="$(find athome_navigation)/launch/rviz_move_base.launch" />
 
 </launch>

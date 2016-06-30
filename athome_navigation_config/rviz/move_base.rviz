@@ -13,6 +13,10 @@ Panels:
         - /Robot Footprint (Polygon)1
         - /Current Goal (Pose)1
         - /Ground Filtered Tilt Scan (PointCloud2)1
+        - /Map2
+        - /Map3
+        - /Path1
+        - /Path2
       Splitter Ratio: 0.5
     Tree Height: 461
   - Class: rviz/Selection
@@ -33,7 +37,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Floor Scan (LaserScan)
 Visualization Manager:
   Class: ""
   Displays:
@@ -102,9 +106,9 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 4096
+      Max Intensity: 1
       Min Color: 0; 0; 0
-      Min Intensity: 0
+      Min Intensity: 1
       Name: Floor Scan (LaserScan)
       Position Transformer: XYZ
       Queue Size: 10
@@ -186,7 +190,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /navigation/move_base_node/global_costmap/costmap
+      Topic: /navigation/athome_move_base_node/global_costmap/costmap
       Value: true
     - Alpha: 0.7
       Class: rviz/Map
@@ -194,23 +198,35 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /navigation/move_base_node/local_costmap/costmap
+      Topic: /navigation/athome_move_base_node/local_costmap/costmap
       Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 25; 255; 0
       Enabled: true
+      Line Style: Lines
+      Line Width: 0.03
       Name: Path
-      Topic: /navigation/move_base_node/TrajectoryPlannerROS/global_plan
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Topic: /navigation/athome_move_base_node/NavfnROS/plan
       Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
       Color: 25; 255; 0
       Enabled: true
+      Line Style: Lines
+      Line Width: 0.03
       Name: Path
-      Topic: /navigation/move_base_node/TrajectoryPlannerROS/local_plan
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Topic: /navigation/athome_move_base_node/TebLocalPlannerROS/local_plan
       Value: true
   Enabled: true
   Global Options:
@@ -236,16 +252,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 27.1103
+      Distance: 15.797
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 6.39198
+        Y: -0.634589
+        Z: 0.230997
       Name: Current View
       Near Clip Distance: 0.01
       Pitch: 1.5348
@@ -269,5 +285,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1301
-  X: 58
+  X: 65
   Y: 24
