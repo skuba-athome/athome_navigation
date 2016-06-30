@@ -16,7 +16,7 @@ define diff_drive_robot position
 (
   pose [ 0.0 0.0 0.0 0.0 ]
 
-  odom_error [0.07 0.07 0.0 3.0]
+  odom_error [0.07 0.07 0.0 3.5]
   size [ 0.588 0.455 0.16 ]
   # origin [ 0.0 0.0 0.0 0.0 ]
   origin [ 0.0 0.0 0.0 0.0 ]
