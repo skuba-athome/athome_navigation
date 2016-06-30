@@ -96,6 +96,7 @@ namespace athome_move_base {
     //like nav_view and rviz
     ros::NodeHandle simple_nh("move_base_simple");
     goal_sub_ = simple_nh.subscribe<geometry_msgs::PoseStamped>("goal", 1, boost::bind(&MoveBase::goalCB, this, _1));
+    goal_with_clear_costmap_sub_ = simple_nh.subscribe<geometry_msgs::PoseStamped>("goal_with_clear_costmap", 1, boost::bind(&MoveBase::goalWithClearCostmapCB, this, _1));
 
     //we'll assume the radius of the robot to be consistent with what's specified for the costmaps
     private_nh.param("local_costmap/inscribed_radius", inscribed_radius_, 0.325);
@@ -272,6 +273,18 @@ namespace athome_move_base {
     action_goal_pub_.publish(action_goal);
   }
 
+  void MoveBase::goalWithClearCostmapCB(const geometry_msgs::PoseStamped::ConstPtr& goal){
+    ROS_DEBUG_NAMED("move_base","In ROS goal callback, wrapping the PoseStamped in the action message and re-sending to the server.");
+
+    clearBoxCostmaps(*goal, 0.5);
+
+    move_base_msgs::MoveBaseActionGoal action_goal;
+    action_goal.header.stamp = ros::Time::now();
+    action_goal.goal.target_pose = *goal;
+
+    action_goal_pub_.publish(action_goal);
+  }
+
   void MoveBase::clearCostmapWindows(double size_x, double size_y){
     tf::Stamped<tf::Pose> global_pose;
 
@@ -336,7 +349,7 @@ namespace athome_move_base {
 
   bool MoveBase::clearPointCostmapsService(athome_move_base::ClearPointCostmap::Request &req, athome_move_base::ClearPointCostmap::Response &resp){
     // Assume that point frame is 'base_link' frame
-    geometry_msgs::PoseStamped point, global_point, local_point;
+    geometry_msgs::PoseStamped point;
     point.pose.position.x = req.x;
     point.pose.position.y = req.y;
 
@@ -345,16 +358,22 @@ namespace athome_move_base {
     point.header.stamp = ros::Time();
     point.header.frame_id = "base_link";
 
-    tf_.transformPose(planner_costmap_ros_->getGlobalFrameID(), point, global_point);
-    tf_.transformPose(controller_costmap_ros_->getGlobalFrameID(), point, local_point);
-
-    std::vector<geometry_msgs::Point> clear_poly = getClearPoly(global_point, req.box_size);
-    planner_costmap_ros_->getCostmap()->setConvexPolygonCost(clear_poly, costmap_2d::FREE_SPACE);
-
-    clear_poly = getClearPoly(local_point, req.box_size);
-    controller_costmap_ros_->getCostmap()->setConvexPolygonCost(clear_poly, costmap_2d::FREE_SPACE);
+    clearBoxCostmaps(point, req.box_size);
     
     return true;
+  }
+      
+  void MoveBase::clearBoxCostmaps(geometry_msgs::PoseStamped center_point, double box_size){
+    geometry_msgs::PoseStamped global_point, local_point;
+
+    tf_.transformPose(planner_costmap_ros_->getGlobalFrameID(), center_point, global_point);
+    tf_.transformPose(controller_costmap_ros_->getGlobalFrameID(), center_point, local_point);
+
+    std::vector<geometry_msgs::Point> clear_poly = getClearPoly(global_point, box_size);
+    planner_costmap_ros_->getCostmap()->setConvexPolygonCost(clear_poly, costmap_2d::FREE_SPACE);
+
+    clear_poly = getClearPoly(local_point, box_size);
+    controller_costmap_ros_->getCostmap()->setConvexPolygonCost(clear_poly, costmap_2d::FREE_SPACE);
   }
 
   std::vector<geometry_msgs::Point> MoveBase::getClearPoly(geometry_msgs::PoseStamped &point, double box_size){
