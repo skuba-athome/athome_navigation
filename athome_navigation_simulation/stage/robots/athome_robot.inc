@@ -16,7 +16,7 @@ define diff_drive_robot position
 (
   pose [ 0.0 0.0 0.0 0.0 ]
 
-  odom_error [0.03 0.03 999999 999999 999999 0.02]
+  odom_error [0.07 0.07 0.0 3.0]
   size [ 0.588 0.455 0.16 ]
   # origin [ 0.0 0.0 0.0 0.0 ]
   origin [ 0.0 0.0 0.0 0.0 ]
@@ -25,6 +25,7 @@ define diff_drive_robot position
 
   # kinematics
   drive "diff"
+  localization "odom"
 
   # spawn sensors
   # laser(pose [ -0.1 0.0 -0.11 0.0 ])

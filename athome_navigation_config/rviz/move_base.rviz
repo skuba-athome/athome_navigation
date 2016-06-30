@@ -90,6 +90,7 @@ Visualization Manager:
       Enabled: true
       Name: Map
       Topic: /navigation/map
+      Unreliable: false
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -117,6 +118,7 @@ Visualization Manager:
       Size (m): 0.05
       Style: Flat Squares
       Topic: /laser/scan
+      Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -126,6 +128,7 @@ Visualization Manager:
       Enabled: true
       Name: AMCL Cloud (PoseArray)
       Topic: /navigation/particlecloud
+      Unreliable: false
       Value: true
     - Alpha: 1
       Class: rviz/GridCells
@@ -140,6 +143,7 @@ Visualization Manager:
       Enabled: true
       Name: Robot Footprint (Polygon)
       Topic: /navigation/move_base_node/global_costmap/obstacle_layer_footprint/footprint_stamped
+      Unreliable: false
       Value: true
     - Alpha: 1
       Axes Length: 1
@@ -154,6 +158,7 @@ Visualization Manager:
       Shaft Radius: 0.1
       Shape: Arrow
       Topic: /navigation/move_base_node/current_goal
+      Unreliable: false
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -181,6 +186,7 @@ Visualization Manager:
       Size (m): 0.05
       Style: Flat Squares
       Topic: /kinect/virtual_scan
+      Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -191,6 +197,7 @@ Visualization Manager:
       Enabled: true
       Name: Map
       Topic: /navigation/athome_move_base_node/global_costmap/costmap
+      Unreliable: false
       Value: true
     - Alpha: 0.7
       Class: rviz/Map
@@ -199,6 +206,7 @@ Visualization Manager:
       Enabled: true
       Name: Map
       Topic: /navigation/athome_move_base_node/local_costmap/costmap
+      Unreliable: false
       Value: true
     - Alpha: 1
       Buffer Length: 1
@@ -213,6 +221,7 @@ Visualization Manager:
         Y: 0
         Z: 0
       Topic: /navigation/athome_move_base_node/NavfnROS/plan
+      Unreliable: false
       Value: true
     - Alpha: 1
       Buffer Length: 1
@@ -227,6 +236,36 @@ Visualization Manager:
         Y: 0
         Z: 0
       Topic: /navigation/athome_move_base_node/TebLocalPlannerROS/local_plan
+      Unreliable: false
+      Value: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base_footprint:
+          Value: true
+        base_laser_link:
+          Value: true
+        base_link:
+          Value: true
+        map:
+          Value: true
+        odom:
+          Value: true
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        map:
+          odom:
+            base_footprint:
+              base_link:
+                base_laser_link:
+                  {}
+      Update Interval: 0
       Value: true
   Enabled: true
   Global Options:
@@ -252,7 +291,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.797
+      Distance: 21.9389
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
