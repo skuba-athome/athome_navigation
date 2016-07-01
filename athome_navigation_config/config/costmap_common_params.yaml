@@ -24,7 +24,7 @@ observation_sources: base_scan #virtual_scan # tilt_scan ground_object_cloud
 base_scan: { topic: /laser/scan,
              sensor_frame: laser_Link,
              observation_persistence: 0.0,
-             expected_update_rate: 0.3,
+             expected_update_rate: 1,
              data_type: LaserScan,
              clearing: true,
              marking: true,
