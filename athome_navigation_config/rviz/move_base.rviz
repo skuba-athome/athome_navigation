@@ -89,7 +89,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /navigation/map
+      Topic: /mapping/map
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -291,16 +291,16 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 21.9389
+      Distance: 14.5935
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 6.39198
-        Y: -0.634589
-        Z: 0.230997
+        X: -0.752212
+        Y: -3.20624
+        Z: -0.0217276
       Name: Current View
       Near Clip Distance: 0.01
       Pitch: 1.5348

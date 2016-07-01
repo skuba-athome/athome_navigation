@@ -12,6 +12,9 @@
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
 
     <!--
+    <param name="base_global_planner" value="navfn/NavfnROS" />
+    <param name="base_global_planner" value="carrot_planner/CarrotPlanner" />
+
     <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
     <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS" />
     -->

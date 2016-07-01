@@ -1,7 +1,7 @@
 # static map parameters
-unknown_cost_value: -1
+unknown_cost_value: 0
 lethal_cost_threshold: 100
-map_topic: /mapping/mapx
+map_topic: /map
 
 #Set the tolerance we're willing to have for tf transforms
 transform_tolerance: 0.3
