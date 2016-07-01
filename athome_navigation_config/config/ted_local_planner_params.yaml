@@ -32,7 +32,7 @@ TebLocalPlannerROS:
     
  # Obstacles
  min_obstacle_dist: 0.25 # This value must also include our robot radius, since footprint_model is set to "point".
- include_costmap_obstacles: True
+ include_costmap_obstacles: false
  costmap_obstacles_behind_robot_dist: 1.0
  obstacle_poses_affected: 30
  costmap_converter_plugin: ""
