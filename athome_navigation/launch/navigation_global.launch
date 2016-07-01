@@ -6,7 +6,7 @@
   </include>
   
   <!-- Run the map server -->
-  <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/8_floor_new_version.yaml"/>
+  <node ns="navigation" name="map_server" pkg="map_server" type="map_server" args="$(find athome_navigation_mapping)/maps/map.yaml"/>
  
   <!--- Run AMCL -->
   <include file="$(find athome_navigation)/launch/amcl_node.launch" />
