@@ -2,14 +2,15 @@ define laser ranger
 (
   sensor
   (
-    range_max 30.0
-    fov 180.0
+    range [0.05 30.0]
+    fov 180
     samples 720
+    resolution 1
+    # size [ 0.06 0.15 0.03 ]
+    size [ 0.06 0.06 0.05 ]
   )
   # generic model properties
   color "black"
-  # size [ 0.06 0.15 0.03 ]
-  size [ 0.06 0.06 0.05 ]
 )
 
 define diff_drive_robot position
