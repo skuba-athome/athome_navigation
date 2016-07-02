@@ -1,6 +1,6 @@
 <launch>
   
-  <arg name="simulation_enable" />  
+  <arg name="simulation_enable" default="false"/>  
 
   <node ns="navigation" pkg="athome_move_base" type="athome_move_base" name="athome_move_base_node" output="screen">
     <!--<remap from="move_base_simple/goal" to="move_base_node/set_goal"/>-->
