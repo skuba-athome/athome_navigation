@@ -65,7 +65,11 @@ Visualization Manager:
       Marker Topic: /visualization_marker
       Name: Visualization Markers
       Namespaces:
-        {}
+        "": true
+        LEGS: true
+        PEOPLE: true
+        SPEED: true
+        TEXT: true
       Queue Size: 100
       Value: true
     - Alpha: 0.5
@@ -330,10 +334,25 @@ Visualization Manager:
       Topic: /navigation/athome_move_base_node/TebLocalPlannerROS/teb_poses
       Unreliable: false
       Value: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.1
+      Class: rviz/Pose
+      Color: 255; 25; 0
+      Enabled: true
+      Head Length: 0.3
+      Head Radius: 0.1
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05
+      Shape: Arrow
+      Topic: /navigation/athome_move_base_node/current_goal
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: map
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -354,22 +373,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 19.0187
+      Distance: 3.59007
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.101959
+        Y: -0.13288
+        Z: -0.00660691
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 1.5698
+      Pitch: 1.5048
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.7954
+      Yaw: 4.5404
     Saved: ~
 Window Geometry:
   Displays:
