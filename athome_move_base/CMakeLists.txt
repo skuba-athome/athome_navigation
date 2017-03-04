@@ -15,6 +15,7 @@ find_package(catkin REQUIRED
         tf
 )
 find_package(Eigen REQUIRED)
+find_package(NAVIGATION)
 add_definitions(${EIGEN_DEFINITIONS})
 
 # dynamic reconfigure
